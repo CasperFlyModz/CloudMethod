@@ -43,4 +43,29 @@ function RIP.EC(bool)
 		["Flying"] = bool
 	})
 end
+function RIP.GP(str)
+	local Found, str = {}, tostring(str):lower()
+	if str == "all" then
+		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+			if v.Name ~= RIP.ME.Name then
+				table.insert(Found, v)
+			end
+		end
+	elseif str == "me" then
+		table.insert(Found, RIP.ME)
+	elseif str == "others" then
+		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+			if v.Name ~= RIP.ME.Name then
+				table.insert(Found, v)
+			end
+		end
+	else
+		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
+			if v.Name:lower():sub(1, #str) == str:lower() or v.DisplayName:lower():sub(1, #str) == str:lower() and v ~= RIP.ME then
+				table.insert(Found, v)
+			end
+		end
+	end
+	return Found
+end
 return RIP
