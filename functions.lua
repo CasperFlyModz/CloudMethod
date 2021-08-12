@@ -5,13 +5,13 @@ ME.CharacterAdded:Connect(function(v)
     RIP.Char = v
 end)
 function RIP.SetProperty(Obj, Prop, Val)
-    if not Char:FindFirstChild("PompousTheCloud") then
-        if not ME.Backpack:FindFirstChild("PompousTheCloud") then
+    if not RIP.Char:FindFirstChild("PompousTheCloud") then
+        if not RIP.ME.Backpack:FindFirstChild("PompousTheCloud") then
             return error("You do not own VIP or a cloud in your inventory.")
         end
-        ME.Backpack.PompousTheCloud.Parent = Char
+        RIP.ME.Backpack.PompousTheCloud.Parent = RIP.Char
     end
-    Char:WaitForChild("PompousTheCloud").ServerControl:InvokeServer("SetProperty",{
+    RIP.Char:WaitForChild("PompousTheCloud").ServerControl:InvokeServer("SetProperty",{
         ["Object"] = Obj,
         ["Property"] = tostring(Prop),
         ["Value"] = Val
@@ -19,13 +19,28 @@ function RIP.SetProperty(Obj, Prop, Val)
     return Obj
 end
 function RIP.GuiEvent()
-    if Char:FindFirstChildOfClass("Model") then
-        Char:FindFirstChildOfClass("Model"):Destroy()
+    if RIP.Char:FindFirstChildOfClass("Model") then
+        RIP.Char:FindFirstChildOfClass("Model"):Destroy()
     end
     workspace.GuiEvent:FireServer("")
-    SetProperty(Char:WaitForChild(""):WaitForChild("Head"), "Transparency", 1)
-    SetProperty(Char.Head, "Transparency", 0)
-    Char[""].Head:ClearAllChildren()
-    return Char[""].Head
+    RIP.SetProperty(RIP.Char:WaitForChild(""):WaitForChild("Head"), "Transparency", 1)
+    RIP.SetProperty(RIP.Char.Head, "Transparency", 0)
+    RIP.Char[""].Head:ClearAllChildren()
+    return RIP.Char[""]
+end
+function RIP.Kill(player)
+    RIP.SetProperty(RIP.GuiEvent():WaitForChild("Head"), "Parent", plr.Character or game:GetService("Players"):FindFirstChild(plr).Character)
+    RIP.Char[""]:Destroy()
+end
+function RIP.EC(bool)
+    if not RIP.Char:FindFirstChild("PompousTheCloud") then
+        if not RIP.ME.Backpack:FindFirstChild("PompousTheCloud") then
+            return error("You do not own VIP or a cloud in your inventory.")
+        end
+        RIP.ME.Backpack.PompousTheCloud.Parent = RIP.Char
+    end
+	RIP.Char:WaitForChild("PompousTheCloud").ServerControl:InvokeServer("Fly", {
+	    ["Flying"] = bool
+	})
 end
 return RIP
