@@ -1,7 +1,7 @@
 local RIP = {}
 RIP.ME = game:GetService("Players").LocalPlayer
 RIP.Char = ME.Character or ME.CharacterAdded:Wait()
-ME.CharacterAdded:Connect(function(v)
+RIP.ME.CharacterAdded:Connect(function(v)
 	RIP.Char = v
 end)
 function RIP.SetProperty(Obj, Prop, Val)
