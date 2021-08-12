@@ -1,9 +1,10 @@
-local ME = game:GetService("Players").LocalPlayer
-local Char = ME.Character or ME.CharacterAdded:Wait()
+local RIP = {}
+RIP.ME = game:GetService("Players").LocalPlayer
+RIP.Char = ME.Character or ME.CharacterAdded:Wait()
 ME.CharacterAdded:Connect(function(v)
-    Char = v
+    RIP.Char = v
 end)
-local function SetProperty(Obj, Prop, Val)
+function RIP.SetProperty(Obj, Prop, Val)
     if not Char:FindFirstChild("PompousTheCloud") then
         if not ME.Backpack:FindFirstChild("PompousTheCloud") then
             return error("You do not own VIP or a cloud in your inventory.")
@@ -17,7 +18,7 @@ local function SetProperty(Obj, Prop, Val)
     })
     return Obj
 end
-local function GuiEvent()
+function RIP.GuiEvent()
     if Char:FindFirstChildOfClass("Model") then
         Char:FindFirstChildOfClass("Model"):Destroy()
     end
@@ -27,3 +28,4 @@ local function GuiEvent()
     Char[""].Head:ClearAllChildren()
     return Char[""].Head
 end
+return RIP
