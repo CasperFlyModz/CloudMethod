@@ -28,9 +28,17 @@ function RIP.GuiEvent()
 	RIP.Char[""].Head:ClearAllChildren()
 	return RIP.Char[""]
 end
-function RIP.Kill(player)
-	RIP.SetProperty(RIP.GuiEvent():WaitForChild("Head"), "Parent", plr.Character or game:GetService("Players"):FindFirstChild(plr).Character)
-	RIP.Char[""]:Destroy()
+function RIP.Kill(player, method)
+	if not method or method:lower() == "guievent" or method:lower() == "rp" then
+		RIP.SetProperty(RIP.GuiEvent():WaitForChild("Head"), "Parent", plr.Character or game:GetService("Players"):FindFirstChild(plr).Character)
+		RIP.Char[""]:Destroy()
+	elseif method:lower() == "ec" or method:lower() == "effectcloud" then
+		RIP.EC(true):ClearAllChildren()
+		RIP.SetProperty(RIP.Char.PompousTheCloud.EffectCloud, "Transparency", 1)
+		RIP.SetProperty(RIP.Char.PompousTheCloud.EffectCloud, "Name", "Head")
+		RIP.SetProperty(RIP.Char.PompousTheCloud:WaitForChild("Head"), "Parent", plr.Charatcer or game:GetService("Players"):FindFirstChild(plr).Character)
+		RIP.EC(false)
+	end
 end
 function RIP.EC(bool)
 	if not RIP.Char:FindFirstChild("PompousTheCloud") then
@@ -42,6 +50,10 @@ function RIP.EC(bool)
 	RIP.Char:WaitForChild("PompousTheCloud").ServerControl:InvokeServer("Fly", {
 		["Flying"] = bool
 	})
+	if bool == true then
+		RIP.Char.PompousTheCloud:WaitForChild("EffectCloud").CanCollide = false
+		return RIP.Char.PompousTheCloud.EffectCloud
+	end
 end
 function RIP.GP(str)
 	local Found, str = {}, tostring(str):lower()
