@@ -1,17 +1,17 @@
 local RIP = {}
-RIP.ME = game:GetService("Players").LocalPlayer
-RIP.Char = RIP.ME.Character or RIP.ME.CharacterAdded:Wait()
-RIP.ME.CharacterAdded:Connect(function(v)
-	RIP.Char = v
+ME = game:GetService("Players").LocalPlayer
+Char = ME.Character or ME.CharacterAdded:Wait()
+ME.CharacterAdded:Connect(function(v)
+	Char = v
 end)
 function RIP.SetProperty(Obj, Prop, Val)
-	if not RIP.Char:FindFirstChild("PompousTheCloud") then
-		if not RIP.ME.Backpack:FindFirstChild("PompousTheCloud") then
+	if not Char:FindFirstChild("PompousTheCloud") then
+		if not ME.Backpack:FindFirstChild("PompousTheCloud") then
 			return error("You do not own VIP or a cloud in your inventory.")
 		end
-		RIP.ME.Backpack.PompousTheCloud.Parent = RIP.Char
+		ME.Backpack.PompousTheCloud.Parent = Char
 	end
-	RIP.Char:WaitForChild("PompousTheCloud").ServerControl:InvokeServer("SetProperty", {
+	Char:WaitForChild("PompousTheCloud").ServerControl:InvokeServer("SetProperty", {
 		["Object"] = Obj,
 		["Property"] = tostring(Prop),
 		["Value"] = Val
@@ -19,61 +19,61 @@ function RIP.SetProperty(Obj, Prop, Val)
 	return Obj
 end
 function RIP.GuiEvent()
-	if RIP.Char:FindFirstChildOfClass("Model") then
-		RIP.Char:FindFirstChildOfClass("Model"):Destroy()
+	if Char:FindFirstChildOfClass("Model") then
+		Char:FindFirstChildOfClass("Model"):Destroy()
 	end
 	workspace.GuiEvent:FireServer("")
-	RIP.SetProperty(RIP.Char:WaitForChild(""):WaitForChild("Head"), "Transparency", 1)
-	RIP.SetProperty(RIP.Char.Head, "Transparency", 0)
-	RIP.Char[""].Head:ClearAllChildren()
-	return RIP.Char[""]
+	RIP.SetProperty(Char:WaitForChild(""):WaitForChild("Head"), "Transparency", 1)
+	RIP.SetProperty(Char.Head, "Transparency", 0)
+	Char[""].Head:ClearAllChildren()
+	return Char[""]
 end
 function RIP.Kill(player, method)
 	if not method or method:lower() == "guievent" or method:lower() == "rp" then
 		RIP.SetProperty(RIP.GuiEvent():WaitForChild("Head"), "Parent", plr.Character or game:GetService("Players"):FindFirstChild(plr).Character)
-		RIP.Char[""]:Destroy()
+		Char[""]:Destroy()
 	elseif method:lower() == "ec" or method:lower() == "effectcloud" then
 		RIP.EC(true):ClearAllChildren()
-		RIP.SetProperty(RIP.Char.PompousTheCloud.EffectCloud, "Transparency", 1)
-		RIP.SetProperty(RIP.Char.PompousTheCloud.EffectCloud, "Name", "Head")
-		RIP.SetProperty(RIP.Char.PompousTheCloud:WaitForChild("Head"), "Parent", plr.Charatcer or game:GetService("Players"):FindFirstChild(plr).Character)
+		RIP.SetProperty(Char.PompousTheCloud.EffectCloud, "Transparency", 1)
+		RIP.SetProperty(Char.PompousTheCloud.EffectCloud, "Name", "Head")
+		RIP.SetProperty(Char.PompousTheCloud:WaitForChild("Head"), "Parent", plr.Charatcer or game:GetService("Players"):FindFirstChild(plr).Character)
 		RIP.EC(false)
 	end
 end
 function RIP.EC(bool)
-	if not RIP.Char:FindFirstChild("PompousTheCloud") then
-		if not RIP.ME.Backpack:FindFirstChild("PompousTheCloud") then
+	if not Char:FindFirstChild("PompousTheCloud") then
+		if not ME.Backpack:FindFirstChild("PompousTheCloud") then
 			return error("You do not own VIP or a cloud in your inventory.")
 		end
-		RIP.ME.Backpack.PompousTheCloud.Parent = RIP.Char
+		ME.Backpack.PompousTheCloud.Parent = Char
 	end
-	RIP.Char:WaitForChild("PompousTheCloud").ServerControl:InvokeServer("Fly", {
+	Char:WaitForChild("PompousTheCloud").ServerControl:InvokeServer("Fly", {
 		["Flying"] = bool
 	})
 	if bool == true then
-		RIP.Char.PompousTheCloud:WaitForChild("EffectCloud").CanCollide = false
-		return RIP.Char.PompousTheCloud.EffectCloud
+		Char.PompousTheCloud:WaitForChild("EffectCloud").CanCollide = false
+		return Char.PompousTheCloud.EffectCloud
 	end
 end
 function RIP.GP(str)
 	local Found, str = {}, tostring(str):lower()
 	if str == "all" then
 		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-			if v.Name ~= RIP.ME.Name then
+			if v.Name ~= ME.Name then
 				table.insert(Found, v)
 			end
 		end
 	elseif str == "me" then
-		table.insert(Found, RIP.ME)
+		table.insert(Found, ME)
 	elseif str == "others" then
 		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-			if v.Name ~= RIP.ME.Name then
+			if v.Name ~= ME.Name then
 				table.insert(Found, v)
 			end
 		end
 	else
 		for _, v in pairs(game:GetService("Players"):GetPlayers()) do
-			if v.Name:lower():sub(1, #str) == str:lower() or v.DisplayName:lower():sub(1, #str) == str:lower() and v ~= RIP.ME then
+			if v.Name:lower():sub(1, #str) == str:lower() or v.DisplayName:lower():sub(1, #str) == str:lower() and v ~= ME then
 				table.insert(Found, v)
 			end
 		end
