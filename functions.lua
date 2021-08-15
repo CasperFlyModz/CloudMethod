@@ -1,6 +1,6 @@
 local RIP = {}
 RIP.ME = game:GetService("Players").LocalPlayer
-RIP.Char = ME.Character or ME.CharacterAdded:Wait()
+RIP.Char = RIP.ME.Character or RIP.ME.CharacterAdded:Wait()
 RIP.ME.CharacterAdded:Connect(function(v)
 	RIP.Char = v
 end)
